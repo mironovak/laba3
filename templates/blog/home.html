@@ -1,0 +1,148 @@
+<!-- <!DOCTYPE html>
+<html lang="ru">
+    библиотеку тегов static, которая позволяет  -->
+    <!-- использовать тег static для генерации URL-адресов статических файлов.  -->
+<!-- <head>
+    {% load static %} 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Платформа для блогов</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<header>
+    <h1>Добро пожаловать на платформу для блогов</h1>
+</header>
+<main> -->
+    <!-- <section class="content">
+        <h2>Настройки читательских предпочтений</h2>
+        Атрибут action="#" указывает, что форма будет отправляться на текущую страницу. -->
+        <!-- <form action="{% url 'set_preferences' %}" method="post"> -->
+             <!-- Этот тег шаблона Django добавляет  -->
+            <!-- скрытое поле с CSRF-токеном для защиты формы от межсайтовых подделок запросов  -->
+            <!-- {% csrf_token %} -->
+            <!-- <label for="name">Имя:</label>
+            <input type="text" id="name" name="name" required> -->
+
+            <!-- <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required> -->
+            <!-- Атрибут required указывает, что это поле обязательно для заполнения. -->
+            <!-- <label for="categories">Выберите интересующие вас категории:</label>
+            <select id="categories" name="categories" multiple required> -->
+                <!-- Атрибут multiple позволяет выбрать несколько категорий, -->
+                <!-- <option value="tech">Технологии</option>
+                <option value="travel">Путешествия</option>
+                <option value="health">Здоровье</option>
+                <option value="food">Еда</option>
+                <option value="sports">Спорт</option>
+            </select> --> -->
+
+
+            <!-- <label for="frequency">Частота получения уведомлений:</label>
+            <select id="frequency" name="frequency" required>
+                <option value="daily">Ежедневно</option>
+                <option value="weekly">Еженедельно</option>
+                <option value="monthly">Ежемесячно</option>
+            </select> -->
+
+            <!-- <label for="language">Язык:</label>
+            <select id="language" name="language" required>
+                <option value="ru">Русский</option>
+                <option value="en">Английский</option>
+            </select> -->
+<!-- 
+            <button type="submit">Сохранить настройки</button>
+        </form>
+    </section>
+    <section class="blog-content">
+        <h2>Популярные статьи</h2>
+        <article> -->
+            <!-- <h3>Как начать свой блог</h3>
+            <p>В этой статье мы расскажем, как легко и быстро начать свой блог и привлечь первых читателей.</p>
+            <img src="{% static 'images/blog-image.webp' %}" alt="Как начать свой блог">
+        </article>
+        <article> -->
+            <!-- <h3>Топ-5 мест для путешествий в 2024 году</h3>
+            <p>Узнайте, какие места обязательно стоит посетить в этом году.</p>
+            <img src="{% static 'images/travel-image.jpg' %}" alt="Топ-5 мест для путешествий">
+        </article>
+    </section> -->
+<!-- </main>
+<footer>
+    <p>&copy; 2024 Платформа для блогов. Все права защищены.</p>
+</footer>
+</body>
+</html> --> 
+
+<!DOCTYPE html>
+<html lang="{% if request.COOKIES.language == 'en' %}en{% else %}ru{% endif %}">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if request.COOKIES.language == 'en' %}Blog Platform{% else %}Платформа для блогов{% endif %}</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<header>
+    <h1>{% if request.COOKIES.language == 'en' %}Welcome to the Blog Platform{% else %}Добро пожаловать на платформу для блогов{% endif %}</h1>
+</header>
+<main>
+    <section class="content">
+        <h2>{% if request.COOKIES.language == 'en' %}Reader Preferences Settings{% else %}Настройки читательских предпочтений{% endif %}</h2>
+        <form action="{% url 'set_preferences' %}" method="post">
+            {% csrf_token %}
+            <label for="name">{% if request.COOKIES.language == 'en' %}Name:{% else %}Имя:{% endif %}</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">{% if request.COOKIES.language == 'en' %}Email:{% else %}Email:{% endif %}</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="categories">{% if request.COOKIES.language == 'en' %}Select your categories of interest:{% else %}Выберите интересующие вас категории:{% endif %}</label>
+            <select id="categories" name="categories" multiple required>
+                <option value="tech">{% if request.COOKIES.language == 'en' %}Technology{% else %}Технологии{% endif %}</option>
+                <option value="travel">{% if request.COOKIES.language == 'en' %}Travel{% else %}Путешествия{% endif %}</option>
+                <option value="health">{% if request.COOKIES.language == 'en' %}Health{% else %}Здоровье{% endif %}</option>
+                <option value="food">{% if request.COOKIES.language == 'en' %}Food{% else %}Еда{% endif %}</option>
+                <option value="sports">{% if request.COOKIES.language == 'en' %}Sports{% else %}Спорт{% endif %}</option>
+            </select>
+
+            <label for="frequency">{% if request.COOKIES.language == 'en' %}Notification Frequency:{% else %}Частота получения уведомлений:{% endif %}</label>
+            <select id="frequency" name="frequency" required>
+                <option value="daily">{% if request.COOKIES.language == 'en' %}Daily{% else %}Ежедневно{% endif %}</option>
+                <option value="weekly">{% if request.COOKIES.language == 'en' %}Weekly{% else %}Еженедельно{% endif %}</option>
+                <option value="monthly">{% if request.COOKIES.language == 'en' %}Monthly{% else %}Ежемесячно{% endif %}</option>
+            </select>
+
+            <label for="theme">{% if request.COOKIES.language == 'en' %}Theme:{% else %}Тема:{% endif %}</label>
+            <select id="theme" name="theme" required>
+                <option value="light">{% if request.COOKIES.language == 'en' %}Light{% else %}Светлая{% endif %}</option>
+                <option value="dark">{% if request.COOKIES.language == 'en' %}Dark{% else %}Темная{% endif %}</option>
+            </select>
+
+            <label for="language">{% if request.COOKIES.language == 'en' %}Language:{% else %}Язык:{% endif %}</label>
+            <select id="language" name="language" required>
+                <option value="ru">{% if request.COOKIES.language == 'en' %}Russian{% else %}Русский{% endif %}</option>
+                <option value="en">{% if request.COOKIES.language == 'en' %}English{% else %}Английский{% endif %}</option>
+            </select>
+
+            <button type="submit">{% if request.COOKIES.language == 'en' %}Save Settings{% else %}Сохранить настройки{% endif %}</button>
+        </form>
+    </section>
+    <section class="blog-content">
+        <h2>{% if request.COOKIES.language == 'en' %}Popular Articles{% else %}Популярные статьи{% endif %}</h2>
+        <article>
+            <h3>{% if request.COOKIES.language == 'en' %}How to Start Your Blog{% else %}Как начать свой блог{% endif %}</h3>
+            <p>{% if request.COOKIES.language == 'en' %}In this article, we will tell you how to easily and quickly start your blog and attract your first readers.{% else %}В этой статье мы расскажем, как легко и быстро начать свой блог и привлечь первых читателей.{% endif %}</p>
+            <img src="{% static 'images/blog-image.webp' %}" alt="{% if request.COOKIES.language == 'en' %}How to Start Your Blog{% else %}Как начать свой блог{% endif %}">
+        </article>
+        <article>
+            <h3>{% if request.COOKIES.language == 'en' %}Top 5 Places to Travel in 2024{% else %}Топ-5 мест для путешествий в 2024 году{% endif %}</h3>
+            <p>{% if request.COOKIES.language == 'en' %}Find out which places are a must-visit this year.{% else %}Узнайте, какие места обязательно стоит посетить в этом году.{% endif %}</p>
+            <img src="{% static 'images/travel-image.jpg' %}" alt="{% if request.COOKIES.language == 'en' %}Top 5 Places to Travel{% else %}Топ-5 мест для путешествий{% endif %}">
+        </article>
+    </section>
+</main>
+<footer>
+    <p>&copy; 2024 {% if request.COOKIES.language == 'en' %}Blog Platform{% else %}Платформа для блогов{% endif %}. Все права защищены.</p>
+</footer>
+</body>
+</html>
